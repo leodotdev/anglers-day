@@ -18,7 +18,7 @@ function loadTheme(): ThemeMode {
       if (v === "light" || v === "dark" || v === "auto") return v;
     } catch {}
   }
-  return "light";
+  return "auto";
 }
 
 export function useThemeMode() {

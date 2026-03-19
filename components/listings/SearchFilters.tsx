@@ -374,7 +374,7 @@ export function SearchFilters({
         presentationStyle="pageSheet"
         onRequestClose={() => setModalVisible(false)}
       >
-        <SafeAreaView style={styles.modalContainer}>
+        <SafeAreaView style={[styles.modalContainer, { backgroundColor: theme.colors.white }]}>
           {/* Header */}
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -545,7 +545,7 @@ export function SearchFilters({
         presentationStyle="pageSheet"
         onRequestClose={() => setDateModalVisible(false)}
       >
-        <SafeAreaView style={styles.modalContainer}>
+        <SafeAreaView style={[styles.modalContainer, { backgroundColor: theme.colors.white }]}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setDateModalVisible(false)}>
               <X size={24} color={theme.colors.neutral[900]} />
@@ -692,7 +692,7 @@ export function SearchFilters({
         presentationStyle="pageSheet"
         onRequestClose={() => setLocationModalVisible(false)}
       >
-        <SafeAreaView style={styles.modalContainer}>
+        <SafeAreaView style={[styles.modalContainer, { backgroundColor: theme.colors.white }]}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setLocationModalVisible(false)}>
               <X size={24} color={theme.colors.neutral[900]} />
@@ -1005,6 +1005,7 @@ const styles = StyleSheet.create((theme) => ({
   },
   modalContent: {
     flex: 1,
+    backgroundColor: theme.colors.white,
   },
   section: {
     paddingHorizontal: theme.spacing.lg,

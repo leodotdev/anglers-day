@@ -18,7 +18,8 @@ import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { useMutation, useAction, useConvex } from "convex/react";
+import { useMutation, useAction, useConvex, useQuery } from "convex/react";
+import { useConvexAuth } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
   ChevronRight,
@@ -45,12 +46,16 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useThemeMode, type ThemeMode } from "@/hooks/useTheme";
 import { useAuthDialog } from "@/components/auth/AuthDialog";
 import { Button } from "@/components/ui/button";
+import { ListingCard } from "@/components/listings/ListingCard";
+import { getListingPhotos } from "@/lib/dummyPhotos";
 import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export default function AccountScreen() {
   const { signOut } = useAuthActions();
   const { user } = useCurrentUser();
+  const { isAuthenticated } = useConvexAuth();
   const updateProfile = useMutation(api.users.updateProfile);
+  const favorites = useQuery(api.favorites.getByUser, isAuthenticated ? {} : "skip");
 
   // Edit state
   const [editing, setEditing] = useState(false);
@@ -301,6 +306,27 @@ export default function AccountScreen() {
             </Pressable>
           )}
         </View>
+
+        {/* Saved Listings */}
+        {favorites && favorites.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionLabel}>Saved Listings</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.savedScroller}
+            >
+              {favorites.map((fav) => (
+                <View key={fav._id} style={styles.savedCard}>
+                  <ListingCard
+                    listing={fav.listing}
+                    photoUrls={getListingPhotos(fav.listingId)}
+                  />
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        )}
 
         {/* Host section */}
         <View style={styles.section}>
@@ -624,6 +650,15 @@ const styles = StyleSheet.create((theme) => ({
     fontSize: 28,
     fontWeight: "800",
     color: theme.colors.neutral[900],
+  },
+
+  // Saved listings
+  savedScroller: {
+    gap: 12,
+    paddingRight: 20,
+  },
+  savedCard: {
+    width: 280,
   },
 
   // Profile card

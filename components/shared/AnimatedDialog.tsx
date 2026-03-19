@@ -8,7 +8,7 @@ import Animated, {
   runOnJS,
   Easing,
 } from "react-native-reanimated";
-import { colors } from "@/lib/colors";
+import { useUnistyles } from "react-native-unistyles";
 
 interface AnimatedDialogProps {
   visible: boolean;
@@ -17,6 +17,7 @@ interface AnimatedDialogProps {
 }
 
 export function AnimatedDialog({ visible, onClose, children }: AnimatedDialogProps) {
+  const { theme } = useUnistyles();
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
 
@@ -45,7 +46,7 @@ export function AnimatedDialog({ visible, onClose, children }: AnimatedDialogPro
         <Animated.View style={[styles.backdrop, backdropStyle]}>
           <Pressable style={RNStyleSheet.absoluteFill} onPress={onClose} />
         </Animated.View>
-        <Animated.View style={[styles.dialog, dialogStyle]}>
+        <Animated.View style={[styles.dialog, { backgroundColor: theme.colors.white }, dialogStyle]}>
           {children}
         </Animated.View>
       </View>
@@ -65,7 +66,6 @@ const styles = RNStyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   dialog: {
-    backgroundColor: "#fff",
     borderRadius: 20,
     width: "100%",
     maxHeight: "75%",

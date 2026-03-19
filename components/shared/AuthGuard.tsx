@@ -51,6 +51,7 @@ const styles = StyleSheet.create((theme) => ({
     justifyContent: "center",
     paddingHorizontal: 32,
     paddingVertical: 48,
+    backgroundColor: theme.colors.neutral[50],
   },
   loadingText: {
     fontSize: theme.fontSize.base,

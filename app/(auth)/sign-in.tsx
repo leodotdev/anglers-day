@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export default function SignInScreen() {
+  const { theme } = useUnistyles();
   const { signIn } = useAuthActions();
   const { context, email: prefillEmail } = useLocalSearchParams<{ context?: string; email?: string }>();
   const [email, setEmail] = useState(prefillEmail ?? "");
@@ -119,7 +119,7 @@ export default function SignInScreen() {
             <TextInput
               style={styles.input}
               placeholder="you@example.com"
-              placeholderTextColor={colors.neutral[400]}
+              placeholderTextColor={theme.colors.neutral[400]}
               value={email}
               onChangeText={(t) => { setError(""); setEmail(t); }}
               autoCapitalize="none"
@@ -134,7 +134,7 @@ export default function SignInScreen() {
             <TextInput
               style={styles.input}
               placeholder="Enter your password"
-              placeholderTextColor={colors.neutral[400]}
+              placeholderTextColor={theme.colors.neutral[400]}
               value={password}
               onChangeText={(t) => { setError(""); setPassword(t); }}
               secureTextEntry

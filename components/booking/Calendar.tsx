@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { View, Text, TouchableOpacity, Pressable } from "react-native";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 type DateSet = Set<string>;
 
@@ -33,6 +32,7 @@ export function Calendar({
   onSelectDate,
   onSelectRange,
 }: CalendarProps) {
+  const { theme } = useUnistyles();
   const today = new Date();
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
@@ -138,11 +138,11 @@ export function Calendar({
           disabled={!canGoPrev}
           style={styles.navBtn}
         >
-          <ChevronLeft size={22} color={canGoPrev ? colors.neutral[700] : colors.neutral[200]} />
+          <ChevronLeft size={22} color={canGoPrev ? theme.colors.neutral[700] : theme.colors.neutral[200]} />
         </Pressable>
         <Text style={styles.monthLabel}>{monthLabel}</Text>
         <Pressable onPress={goToNextMonth} style={styles.navBtn}>
-          <ChevronRight size={22} color={colors.neutral[700]} />
+          <ChevronRight size={22} color={theme.colors.neutral[700]} />
         </Pressable>
       </View>
 
@@ -207,12 +207,12 @@ export function Calendar({
   );
 }
 
-const styles = StyleSheet.create((_theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.colors.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: colors.neutral[100],
+    borderColor: theme.colors.neutral[100],
     padding: 12,
   },
   header: {
@@ -232,7 +232,7 @@ const styles = StyleSheet.create((_theme) => ({
   monthLabel: {
     fontSize: 16,
     fontWeight: "700",
-    color: colors.neutral[900],
+    color: theme.colors.neutral[900],
   },
   weekdayRow: {
     flexDirection: "row",
@@ -246,7 +246,7 @@ const styles = StyleSheet.create((_theme) => ({
   weekdayText: {
     fontSize: 12,
     fontWeight: "600",
-    color: colors.neutral[400],
+    color: theme.colors.neutral[400],
     textTransform: "uppercase",
   },
   grid: {
@@ -261,15 +261,15 @@ const styles = StyleSheet.create((_theme) => ({
     position: "relative",
   },
   dayCellInRange: {
-    backgroundColor: colors.primary[50],
+    backgroundColor: theme.colors.primary[50],
   },
   dayCellRangeStart: {
-    backgroundColor: colors.primary[50],
+    backgroundColor: theme.colors.primary[50],
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
   },
   dayCellRangeEnd: {
-    backgroundColor: colors.primary[50],
+    backgroundColor: theme.colors.primary[50],
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
   },
@@ -281,30 +281,30 @@ const styles = StyleSheet.create((_theme) => ({
     justifyContent: "center",
   },
   dayCircleSelected: {
-    backgroundColor: colors.primary[500],
+    backgroundColor: theme.colors.primary[500],
   },
   dayCircleToday: {
     borderWidth: 1.5,
-    borderColor: colors.primary[300],
+    borderColor: theme.colors.primary[300],
   },
   dayText: {
     fontSize: 15,
     fontWeight: "500",
-    color: colors.neutral[900],
+    color: theme.colors.neutral[900],
   },
   dayTextDisabled: {
-    color: colors.neutral[200],
+    color: theme.colors.neutral[200],
   },
   dayTextSelected: {
     color: "#fff",
     fontWeight: "700",
   },
   dayTextToday: {
-    color: colors.primary[500],
+    color: theme.colors.primary[500],
     fontWeight: "700",
   },
   dayTextInRange: {
-    color: colors.primary[700],
+    color: theme.colors.primary[700],
     fontWeight: "600",
   },
   availDot: {
@@ -313,7 +313,7 @@ const styles = StyleSheet.create((_theme) => ({
     width: 4,
     height: 4,
     borderRadius: 2,
-    backgroundColor: colors.success[500],
+    backgroundColor: theme.colors.success[500],
   },
   availDotSelected: {
     backgroundColor: "#fff",

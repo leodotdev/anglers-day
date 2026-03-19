@@ -17,8 +17,7 @@ import { useConvexAuth } from "convex/react";
 import { useRouter } from "expo-router";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 interface CaptainProfileModalProps {
   visible: boolean;
@@ -37,6 +36,7 @@ export function CaptainProfileModal({
   listingId,
   hostId,
 }: CaptainProfileModalProps) {
+  const { theme } = useUnistyles();
   const { isAuthenticated } = useConvexAuth();
   const router = useRouter();
 
@@ -79,7 +79,7 @@ export function CaptainProfileModal({
   return (
     <AnimatedDialog visible={visible} onClose={onClose}>
       <Pressable style={styles.closeBtn} onPress={onClose}>
-        <X size={18} color={colors.neutral[500]} />
+        <X size={18} color={theme.colors.neutral[500]} />
       </Pressable>
 
       <ScrollView
@@ -89,15 +89,15 @@ export function CaptainProfileModal({
             {/* Avatar + name */}
             <View style={styles.profileSection}>
               <View style={styles.avatar}>
-                <Anchor size={28} color={colors.primary[500]} />
+                <Anchor size={28} color={theme.colors.primary[500]} />
               </View>
               <Text style={styles.name}>{captainName}</Text>
               {avgCaptainRating != null && (
                 <View style={styles.ratingRow}>
                   <Star
                     size={15}
-                    color={colors.warning[500]}
-                    fill={colors.warning[500]}
+                    color={theme.colors.warning[500]}
+                    fill={theme.colors.warning[500]}
                   />
                   <Text style={styles.ratingText}>
                     {avgCaptainRating.toFixed(1)}
@@ -129,10 +129,10 @@ export function CaptainProfileModal({
                         <Star
                           key={s}
                           size={11}
-                          color={colors.warning[500]}
+                          color={theme.colors.warning[500]}
                           fill={
                             s <= (review.ratingCaptain ?? 0)
-                              ? colors.warning[500]
+                              ? theme.colors.warning[500]
                               : "transparent"
                           }
                         />
@@ -149,13 +149,13 @@ export function CaptainProfileModal({
             {/* Actions */}
             <View style={styles.actions}>
               <Pressable style={styles.messageBtn} onPress={handleMessage}>
-                <MessageCircle size={16} color={colors.primary[500]} />
+                <MessageCircle size={16} color={theme.colors.primary[500]} />
                 <Text style={styles.messageBtnText}>Message Captain</Text>
               </Pressable>
 
               {hasCompletedBookingForListing && (
                 <Pressable style={styles.rateBtn} onPress={handleRate}>
-                  <Star size={16} color={colors.warning[500]} />
+                  <Star size={16} color={theme.colors.warning[500]} />
                   <Text style={styles.rateBtnText}>Rate Captain</Text>
                 </Pressable>
               )}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create((theme) => ({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: theme.colors.neutral[100],
+    backgroundColor: theme.theme.colors.neutral[100],
     justifyContent: "center",
     alignItems: "center",
   },
@@ -193,7 +193,7 @@ const styles = StyleSheet.create((theme) => ({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: theme.colors.primary[100],
+    backgroundColor: theme.theme.colors.primary[100],
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 12,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create((theme) => ({
   name: {
     fontSize: 20,
     fontWeight: "800",
-    color: theme.colors.neutral[900],
+    color: theme.theme.colors.neutral[900],
     marginBottom: 6,
   },
   ratingRow: {
@@ -212,11 +212,11 @@ const styles = StyleSheet.create((theme) => ({
   ratingText: {
     fontSize: 14,
     fontWeight: "600",
-    color: theme.colors.neutral[700],
+    color: theme.theme.colors.neutral[700],
   },
   ratingCount: {
     fontSize: 13,
-    color: theme.colors.neutral[400],
+    color: theme.theme.colors.neutral[400],
   },
 
   // Bio
@@ -226,14 +226,14 @@ const styles = StyleSheet.create((theme) => ({
   sectionLabel: {
     fontSize: 12,
     fontWeight: "700",
-    color: theme.colors.neutral[500],
+    color: theme.theme.colors.neutral[500],
     marginBottom: 6,
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   bioText: {
     fontSize: 14,
-    color: theme.colors.neutral[600],
+    color: theme.theme.colors.neutral[600],
     lineHeight: 21,
   },
 
@@ -242,7 +242,7 @@ const styles = StyleSheet.create((theme) => ({
     marginBottom: 20,
   },
   reviewCard: {
-    backgroundColor: theme.colors.neutral[50],
+    backgroundColor: theme.theme.colors.neutral[50],
     borderRadius: 10,
     padding: 12,
     marginBottom: 6,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create((theme) => ({
   },
   reviewBody: {
     fontSize: 13,
-    color: theme.colors.neutral[600],
+    color: theme.theme.colors.neutral[600],
     lineHeight: 19,
   },
 
@@ -268,27 +268,27 @@ const styles = StyleSheet.create((theme) => ({
     justifyContent: "center",
     gap: 8,
     borderWidth: 1.5,
-    borderColor: theme.colors.primary[500],
+    borderColor: theme.theme.colors.primary[500],
     borderRadius: 12,
     paddingVertical: 12,
   },
   messageBtnText: {
     fontSize: 14,
     fontWeight: "700",
-    color: theme.colors.primary[500],
+    color: theme.theme.colors.primary[500],
   },
   rateBtn: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: theme.colors.warning[50],
+    backgroundColor: theme.theme.colors.warning[50],
     borderRadius: 12,
     paddingVertical: 12,
   },
   rateBtnText: {
     fontSize: 14,
     fontWeight: "700",
-    color: theme.colors.warning[700],
+    color: theme.theme.colors.warning[700],
   },
 }));

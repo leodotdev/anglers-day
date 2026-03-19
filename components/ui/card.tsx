@@ -1,7 +1,6 @@
 import React, { forwardRef } from "react";
 import { View, ViewProps, Text, TextProps } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 
 export const Card = forwardRef<View, ViewProps>(
   ({ style, ...props }, ref) => (
@@ -50,7 +49,7 @@ const styles = StyleSheet.create((theme) => ({
     backgroundColor: "#FFFFFF",
     borderRadius: theme.radius["2xl"],
     borderWidth: 1,
-    borderColor: colors.neutral[200],
+    borderColor: theme.colors.neutral[200],
   },
   cardHeader: {
     padding: theme.spacing.lg,
@@ -59,11 +58,11 @@ const styles = StyleSheet.create((theme) => ({
   cardTitle: {
     fontSize: theme.fontSize.lg,
     fontWeight: "600",
-    color: colors.neutral[900],
+    color: theme.colors.neutral[900],
   },
   cardDescription: {
     fontSize: theme.fontSize.sm,
-    color: colors.neutral[500],
+    color: theme.colors.neutral[500],
     marginTop: 4,
   },
   cardContent: {

@@ -2,15 +2,18 @@ import { Tabs } from "expo-router";
 import { Waves, Calendar, MessageCircle, UserCircle } from "lucide-react-native";
 import { FloatingTabBar } from "@/components/shared/FloatingTabBar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useUnistyles } from "react-native-unistyles";
 
 export default function GuestLayout() {
   const { isAuthenticated } = useCurrentUser();
+  const { theme } = useUnistyles();
 
   return (
     <Tabs
       tabBar={(props) => <FloatingTabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        sceneStyle: { backgroundColor: theme.colors.neutral[50] },
       }}
     >
       <Tabs.Screen

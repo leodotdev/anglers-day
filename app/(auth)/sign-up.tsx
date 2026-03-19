@@ -14,10 +14,10 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export default function SignUpScreen() {
+  const { theme } = useUnistyles();
   const { signIn } = useAuthActions();
   const createOrGet = useMutation(api.users.createOrGet);
   const { email: prefillEmail } = useLocalSearchParams<{ email?: string }>();
@@ -133,7 +133,7 @@ export default function SignUpScreen() {
             <TextInput
               style={styles.input}
               placeholder="you@example.com"
-              placeholderTextColor={colors.neutral[400]}
+              placeholderTextColor={theme.colors.neutral[400]}
               value={email}
               onChangeText={(t) => { setError(""); setEmail(t); }}
               autoCapitalize="none"
@@ -148,7 +148,7 @@ export default function SignUpScreen() {
             <TextInput
               style={styles.input}
               placeholder="(555) 123-4567"
-              placeholderTextColor={colors.neutral[400]}
+              placeholderTextColor={theme.colors.neutral[400]}
               value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"
@@ -162,7 +162,7 @@ export default function SignUpScreen() {
             <TextInput
               style={styles.input}
               placeholder="Create a password (min 8 chars)"
-              placeholderTextColor={colors.neutral[400]}
+              placeholderTextColor={theme.colors.neutral[400]}
               value={password}
               onChangeText={(t) => { setError(""); setPassword(t); }}
               secureTextEntry

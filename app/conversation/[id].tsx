@@ -111,6 +111,11 @@ export default function ConversationScreen() {
       <Stack.Screen
         options={{
           title: otherName,
+          headerStyle: {
+            backgroundColor: theme.colors.white,
+          },
+          headerTintColor: theme.colors.neutral[900],
+          headerShadowVisible: false,
           headerTitle: () => (
             <View style={styles.headerTitleContainer}>
               <Text style={styles.headerName} numberOfLines={1}>

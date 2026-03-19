@@ -11,6 +11,7 @@ const isWeb = Platform.OS === "web";
 export interface GalleryProps {
   photos: string[];
   height?: number;
+  aspectRatio?: number;
   overlay?: React.ReactNode;
   showArrows?: boolean;
   loop?: boolean;
@@ -32,7 +33,8 @@ function GalleryImage({ uri, width, height }: { uri: string; width: number; heig
 
 export function Gallery({
   photos,
-  height = 288,
+  height: heightProp,
+  aspectRatio,
   overlay,
   showArrows = true,
   loop = true,
@@ -46,6 +48,10 @@ export function Gallery({
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerWidth(e.nativeEvent.layout.width);
   }, []);
+
+  const height = aspectRatio && containerWidth
+    ? Math.round(containerWidth / aspectRatio)
+    : heightProp ?? 288;
 
   const prev = useCallback(() => {
     if (carouselRef.current) {

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 import { Button, ButtonVariant } from "./button";
 
 export interface EmptyStateProps {
@@ -49,19 +48,19 @@ const styles = StyleSheet.create((theme) => ({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: colors.neutral[100],
+    backgroundColor: theme.colors.neutral[100],
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
     fontSize: theme.fontSize.lg,
     fontWeight: "600",
-    color: colors.neutral[900],
+    color: theme.colors.neutral[900],
     textAlign: "center",
   },
   description: {
     fontSize: theme.fontSize.sm,
-    color: colors.neutral[500],
+    color: theme.colors.neutral[500],
     textAlign: "center",
     marginTop: theme.spacing.sm,
     maxWidth: 280,

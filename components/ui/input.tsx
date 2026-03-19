@@ -6,8 +6,7 @@ import {
   TextInputProps,
   ViewStyle,
 } from "react-native";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export interface InputProps extends TextInputProps {
   label?: string;
@@ -19,6 +18,7 @@ export const Input = forwardRef<TextInput, InputProps>(
   ({ label, error, containerStyle, editable, style, ...props }, ref) => {
     const [focused, setFocused] = useState(false);
     const isDisabled = editable === false;
+    const { theme } = useUnistyles();
 
     return (
       <View style={[styles.container, containerStyle]}>
@@ -26,7 +26,7 @@ export const Input = forwardRef<TextInput, InputProps>(
         <TextInput
           ref={ref}
           editable={editable}
-          placeholderTextColor={colors.neutral[400]}
+          placeholderTextColor={theme.colors.neutral[400]}
           onFocus={(e) => {
             setFocused(true);
             props.onFocus?.(e);
@@ -60,7 +60,7 @@ const styles = StyleSheet.create((theme) => ({
   label: {
     fontSize: theme.fontSize.sm,
     fontWeight: "500",
-    color: colors.neutral[700],
+    color: theme.colors.neutral[700],
   },
   input: {
     height: 48,
@@ -69,22 +69,22 @@ const styles = StyleSheet.create((theme) => ({
     borderWidth: 1,
     backgroundColor: "#FFFFFF",
     fontSize: theme.fontSize.base,
-    color: colors.neutral[900],
+    color: theme.colors.neutral[900],
   },
   inputDefault: {
-    borderColor: colors.neutral[300],
+    borderColor: theme.colors.neutral[300],
   },
   inputFocused: {
-    borderColor: colors.primary[500],
+    borderColor: theme.colors.primary[500],
   },
   inputError: {
-    borderColor: colors.error[500],
+    borderColor: theme.colors.error[500],
   },
   inputDisabled: {
-    backgroundColor: colors.neutral[50],
+    backgroundColor: theme.colors.neutral[50],
   },
   errorText: {
     fontSize: theme.fontSize.xs,
-    color: colors.error[500],
+    color: theme.colors.error[500],
   },
 }));

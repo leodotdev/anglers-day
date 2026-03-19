@@ -262,7 +262,7 @@ const styles = StyleSheet.create((theme) => ({
     position: "absolute",
     bottom: 12,
     left: 12,
-    backgroundColor: "rgba(255, 255, 255, 0.92)",
+    backgroundColor: theme.colors.neutral[900],
     borderRadius: theme.radius.full,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -270,7 +270,7 @@ const styles = StyleSheet.create((theme) => ({
   tripTypeText: {
     fontSize: theme.fontSize.xs,
     fontWeight: "600",
-    color: theme.colors.neutral[900],
+    color: theme.colors.neutral[50],
   },
   content: {
     padding: theme.spacing.lg,

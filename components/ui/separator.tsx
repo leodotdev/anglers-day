@@ -1,7 +1,6 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 
 export interface SeparatorProps extends ViewProps {
   orientation?: "horizontal" | "vertical";
@@ -24,9 +23,9 @@ export function Separator({
   );
 }
 
-const styles = StyleSheet.create((_theme) => ({
+const styles = StyleSheet.create((theme) => ({
   base: {
-    backgroundColor: colors.neutral[200],
+    backgroundColor: theme.colors.neutral[200],
   },
   horizontal: {
     height: 1,

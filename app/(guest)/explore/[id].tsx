@@ -19,6 +19,7 @@ import {
   Fish,
 } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useWindowDimensions } from "react-native";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Gallery } from "@/components/listings/Gallery";
@@ -38,6 +39,8 @@ const SPECIES_CARD_WIDTH = 120; // card width + gap
 export default function ListingDetailScreen() {
   const { id, date, guests } = useLocalSearchParams<{ id: string; date?: string; guests?: string }>();
   const { theme } = useUnistyles();
+  const { width: screenWidth } = useWindowDimensions();
+  const heroAspectRatio = screenWidth >= 768 ? 16 / 9 : 4 / 3;
   const speciesScrollRef = useRef<ScrollViewType>(null);
   const speciesOffsetRef = useRef(0);
   const { isAuthenticated } = useConvexAuth();
@@ -127,21 +130,22 @@ export default function ListingDetailScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <Gallery photos={getListingPhotos(id)} showArrows />
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <Gallery photos={getListingPhotos(id)} aspectRatio={heroAspectRatio} showArrows />
 
         <View style={styles.headerOverlay}>
           <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
-            <ChevronLeft size={24} color={theme.colors.neutral[900]} />
+            <ChevronLeft size={24} color="#fff" />
           </TouchableOpacity>
           <View style={styles.headerRight}>
             <FavoriteButton listingId={id as Id<"listings">} />
             <TouchableOpacity style={styles.iconButton} onPress={handleShare}>
-              <ShareIcon size={20} color={theme.colors.neutral[900]} />
+              <ShareIcon size={20} color="#fff" />
             </TouchableOpacity>
           </View>
         </View>
 
+        <View style={styles.scrollContent}>
         <View style={styles.content}>
           {/* Header card */}
           <View style={[styles.sectionCard, { marginBottom: 24 }]}>
@@ -393,7 +397,7 @@ export default function ListingDetailScreen() {
 
           <View style={{ height: 100 }} />
         </View>
-
+        </View>
       </ScrollView>
 
       <View style={styles.bottomBar}>
@@ -468,7 +472,6 @@ const styles = StyleSheet.create((theme) => ({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 80,
     maxWidth: 960,
     width: "100%",
     alignSelf: "center",
@@ -512,7 +515,7 @@ const styles = StyleSheet.create((theme) => ({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "rgba(255,255,255,0.9)",
+    backgroundColor: "rgba(0,0,0,0.35)",
     justifyContent: "center",
     alignItems: "center",
   },

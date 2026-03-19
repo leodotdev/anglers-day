@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Image } from "expo-image";
 import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 
 export type AvatarSize = "sm" | "default" | "lg" | "xl";
 
@@ -69,15 +68,15 @@ export function Avatar({ src, fallback, size = "default" }: AvatarProps) {
   );
 }
 
-const styles = StyleSheet.create((_theme) => ({
+const styles = StyleSheet.create((theme) => ({
   base: {
     overflow: "hidden",
-    backgroundColor: colors.primary[100],
+    backgroundColor: theme.colors.primary[100],
     alignItems: "center",
     justifyContent: "center",
   },
   fallbackText: {
     fontWeight: "600",
-    color: colors.primary[700],
+    color: theme.colors.primary[700],
   },
 }));

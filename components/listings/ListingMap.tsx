@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, Platform } from "react-native";
 import { MapPin, Anchor, Waves } from "lucide-react-native";
 import { StyleSheet, useUnistyles } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 
 let MapView: any;
 let Marker: any;

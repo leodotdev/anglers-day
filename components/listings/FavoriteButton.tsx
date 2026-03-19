@@ -7,14 +7,14 @@ import { useRouter } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export interface FavoriteButtonProps {
   listingId: Id<"listings">;
 }
 
 export function FavoriteButton({ listingId }: FavoriteButtonProps) {
+  const { theme } = useUnistyles();
   const { isAuthenticated } = useConvexAuth();
   const router = useRouter();
 
@@ -46,8 +46,8 @@ export function FavoriteButton({ listingId }: FavoriteButtonProps) {
     >
       <Star
         size={20}
-        color={isFavorited ? colors.warning[500] : "#FFFFFF"}
-        fill={isFavorited ? colors.warning[500] : "transparent"}
+        color={isFavorited ? theme.colors.warning[500] : "#FFFFFF"}
+        fill={isFavorited ? theme.colors.warning[500] : "transparent"}
         strokeWidth={2}
       />
     </TouchableOpacity>
@@ -56,10 +56,10 @@ export function FavoriteButton({ listingId }: FavoriteButtonProps) {
 
 const styles = StyleSheet.create((_theme) => ({
   button: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "rgba(0, 0, 0, 0.35)",
     alignItems: "center",
     justifyContent: "center",
   },

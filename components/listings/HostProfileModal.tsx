@@ -18,8 +18,7 @@ import { useConvexAuth } from "convex/react";
 import { useRouter } from "expo-router";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 interface HostProfileModalProps {
   visible: boolean;
@@ -38,6 +37,7 @@ export function HostProfileModal({
   hostLastName,
   listingId,
 }: HostProfileModalProps) {
+  const { theme } = useUnistyles();
   const { isAuthenticated } = useConvexAuth();
   const router = useRouter();
 
@@ -79,7 +79,7 @@ export function HostProfileModal({
   return (
     <AnimatedDialog visible={visible} onClose={onClose}>
       <Pressable style={styles.closeBtn} onPress={onClose}>
-        <X size={18} color={colors.neutral[500]} />
+        <X size={18} color={theme.colors.neutral[500]} />
       </Pressable>
 
       <ScrollView
@@ -96,8 +96,8 @@ export function HostProfileModal({
                 <View style={styles.ratingRow}>
                   <Star
                     size={15}
-                    color={colors.warning[500]}
-                    fill={colors.warning[500]}
+                    color={theme.colors.warning[500]}
+                    fill={theme.colors.warning[500]}
                   />
                   <Text style={styles.ratingText}>
                     {avgRating.toFixed(1)}
@@ -121,10 +121,10 @@ export function HostProfileModal({
                         <Star
                           key={s}
                           size={11}
-                          color={colors.warning[500]}
+                          color={theme.colors.warning[500]}
                           fill={
                             s <= review.rating
-                              ? colors.warning[500]
+                              ? theme.colors.warning[500]
                               : "transparent"
                           }
                         />
@@ -141,13 +141,13 @@ export function HostProfileModal({
             {/* Actions */}
             <View style={styles.actions}>
               <Pressable style={styles.messageBtn} onPress={handleMessage}>
-                <MessageCircle size={16} color={colors.primary[500]} />
+                <MessageCircle size={16} color={theme.colors.primary[500]} />
                 <Text style={styles.messageBtnText}>Message Host</Text>
               </Pressable>
 
               {hasCompletedBooking && (
                 <Pressable style={styles.rateBtn} onPress={handleRate}>
-                  <Star size={16} color={colors.warning[500]} />
+                  <Star size={16} color={theme.colors.warning[500]} />
                   <Text style={styles.rateBtnText}>Leave a Review</Text>
                 </Pressable>
               )}
@@ -166,7 +166,7 @@ const styles = StyleSheet.create((theme) => ({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: theme.colors.neutral[100],
+    backgroundColor: theme.theme.colors.neutral[100],
     justifyContent: "center",
     alignItems: "center",
   },
@@ -184,7 +184,7 @@ const styles = StyleSheet.create((theme) => ({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: theme.colors.primary[500],
+    backgroundColor: theme.theme.colors.primary[500],
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 12,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create((theme) => ({
   name: {
     fontSize: 20,
     fontWeight: "800",
-    color: theme.colors.neutral[900],
+    color: theme.theme.colors.neutral[900],
     marginBottom: 6,
   },
   ratingRow: {
@@ -208,17 +208,17 @@ const styles = StyleSheet.create((theme) => ({
   ratingText: {
     fontSize: 14,
     fontWeight: "600",
-    color: theme.colors.neutral[700],
+    color: theme.theme.colors.neutral[700],
   },
   ratingCount: {
     fontSize: 13,
-    color: theme.colors.neutral[400],
+    color: theme.theme.colors.neutral[400],
   },
 
   sectionLabel: {
     fontSize: 12,
     fontWeight: "700",
-    color: theme.colors.neutral[500],
+    color: theme.theme.colors.neutral[500],
     marginBottom: 6,
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create((theme) => ({
     marginBottom: 20,
   },
   reviewCard: {
-    backgroundColor: theme.colors.neutral[50],
+    backgroundColor: theme.theme.colors.neutral[50],
     borderRadius: 10,
     padding: 12,
     marginBottom: 6,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create((theme) => ({
   },
   reviewBody: {
     fontSize: 13,
-    color: theme.colors.neutral[600],
+    color: theme.theme.colors.neutral[600],
     lineHeight: 19,
   },
 
@@ -253,27 +253,27 @@ const styles = StyleSheet.create((theme) => ({
     justifyContent: "center",
     gap: 8,
     borderWidth: 1.5,
-    borderColor: theme.colors.primary[500],
+    borderColor: theme.theme.colors.primary[500],
     borderRadius: 12,
     paddingVertical: 12,
   },
   messageBtnText: {
     fontSize: 14,
     fontWeight: "700",
-    color: theme.colors.primary[500],
+    color: theme.theme.colors.primary[500],
   },
   rateBtn: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: theme.colors.warning[50],
+    backgroundColor: theme.theme.colors.warning[50],
     borderRadius: 12,
     paddingVertical: 12,
   },
   rateBtnText: {
     fontSize: 14,
     fontWeight: "700",
-    color: theme.colors.warning[700],
+    color: theme.theme.colors.warning[700],
   },
 }));

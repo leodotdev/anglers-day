@@ -1,10 +1,9 @@
 import { useConvexAuth } from "convex/react";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
-import { StyleSheet } from "react-native-unistyles";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 import { ShieldAlert, LogIn } from "lucide-react-native";
 import { useRole, type UserRole } from "@/hooks/useRole";
-import { colors } from "@/lib/colors";
 
 export function RoleGuard({
   roles,
@@ -16,6 +15,7 @@ export function RoleGuard({
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { role } = useRole();
   const router = useRouter();
+  const { theme } = useUnistyles();
 
   if (isLoading) {
     return (
@@ -28,7 +28,7 @@ export function RoleGuard({
   if (!isAuthenticated) {
     return (
       <View style={styles.centeredPadded}>
-        <LogIn size={48} color={colors.primary[500]} />
+        <LogIn size={48} color={theme.colors.primary[500]} />
         <Text style={styles.heading}>Sign in required</Text>
         <TouchableOpacity
           onPress={() => router.push("/(auth)/sign-in")}
@@ -44,7 +44,7 @@ export function RoleGuard({
   if (!roles.includes(role)) {
     return (
       <View style={styles.centeredPadded}>
-        <ShieldAlert size={48} color={colors.error[500]} />
+        <ShieldAlert size={48} color={theme.colors.error[500]} />
         <Text style={styles.heading}>Access Denied</Text>
         <Text style={styles.subtext}>
           You don't have permission to access this section

@@ -1,8 +1,7 @@
 import { Stack, router, Slot } from "expo-router";
 import { View, Pressable, Platform } from "react-native";
 import { X } from "lucide-react-native";
-import { colors } from "@/lib/colors";
-import { StyleSheet } from "react-native-unistyles";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 const isWeb = Platform.OS === "web";
 
@@ -12,9 +11,10 @@ function dismiss() {
 }
 
 function CloseButton() {
+  const { theme } = useUnistyles();
   return (
     <Pressable onPress={dismiss} hitSlop={12} style={{ padding: 8 }}>
-      <X size={22} color={colors.neutral[400]} />
+      <X size={22} color={theme.colors.neutral[400]} />
     </Pressable>
   );
 }

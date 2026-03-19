@@ -8,7 +8,6 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import { StyleSheet } from "react-native-unistyles";
-import { colors } from "@/lib/colors";
 
 export interface SkeletonProps extends ViewProps {}
 
@@ -37,7 +36,7 @@ export function Skeleton({ style, ...props }: SkeletonProps) {
 
 const styles = StyleSheet.create((theme) => ({
   base: {
-    backgroundColor: colors.neutral[200],
+    backgroundColor: theme.colors.neutral[200],
     borderRadius: theme.radius.lg,
   },
 }));
