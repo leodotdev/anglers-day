@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as SecureStore from "expo-secure-store";
 import { AuthDialogProvider } from "@/components/auth/AuthDialog";
 import { useThemeMode } from "@/hooks/useTheme";
+import { useUnistyles } from "react-native-unistyles";
 
 
 const convex = new ConvexReactClient(
@@ -26,9 +27,18 @@ const secureStorage = Platform.OS !== "web" ? {
 
 export default function RootLayout() {
   useThemeMode();
+  const { theme } = useUnistyles();
+
+  const rootBg = theme.colors.neutral[50];
+
+  // Keep the web document background in sync with the theme
+  if (Platform.OS === "web" && typeof document !== "undefined") {
+    document.documentElement.style.backgroundColor = rootBg;
+    document.body.style.backgroundColor = rootBg;
+  }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: rootBg }}>
       <SafeAreaProvider>
         <ConvexAuthProvider client={convex} storage={secureStorage}>
           <AuthDialogProvider>
