@@ -1,4 +1,5 @@
 import "@/lib/unistyles";
+import { useEffect } from "react";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
 import { Stack } from "expo-router";
@@ -10,6 +11,7 @@ import * as SecureStore from "expo-secure-store";
 import { AuthDialogProvider } from "@/components/auth/AuthDialog";
 import { useThemeMode } from "@/hooks/useTheme";
 import { useUnistyles } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 
 
 const convex = new ConvexReactClient(
@@ -32,13 +34,15 @@ export default function RootLayout() {
   const rootBg = theme.colors.neutral[50];
 
   // Keep the web document background in sync with the theme
-  if (Platform.OS === "web" && typeof document !== "undefined") {
-    document.documentElement.style.backgroundColor = rootBg;
-    document.body.style.backgroundColor = rootBg;
-  }
+  useEffect(() => {
+    if (Platform.OS === "web" && typeof document !== "undefined") {
+      document.documentElement.style.backgroundColor = rootBg;
+      document.body.style.backgroundColor = rootBg;
+    }
+  }, [rootBg]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: rootBg }}>
+    <GestureHandlerRootView style={[styles.root, { backgroundColor: rootBg }]}>
       <SafeAreaProvider>
         <ConvexAuthProvider client={convex} storage={secureStorage}>
           <AuthDialogProvider>
@@ -56,3 +60,9 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
